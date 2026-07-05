@@ -25,7 +25,11 @@ export default function LoginPage() {
       const result = await signInWithPopup(auth, provider)
       await ensureUserProfile(result.user)
       toast.success("Sesión iniciada correctamente")
-      router.push("/app")
+      if (result.user.email === 'rivas2020rodrigo@gmail.com') {
+        router.push("/admin")
+      } else {
+        router.push("/app")
+      }
     } catch (error: unknown) {
       toast.error((error as Error).message || "Error al iniciar sesión")
     } finally {
@@ -45,7 +49,11 @@ export default function LoginPage() {
       setLoading(true)
       await signInWithEmailAndPassword(auth, email, password)
       toast.success("Sesión iniciada correctamente")
-      router.push("/app")
+      if (email === 'rivas2020rodrigo@gmail.com') {
+        router.push("/admin")
+      } else {
+        router.push("/app")
+      }
     } catch (error: unknown) {
       toast.error((error as Error).message || "Credenciales inválidas")
     } finally {

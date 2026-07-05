@@ -19,7 +19,8 @@ export function AdminGuard({ children }: { children: React.ReactNode }) {
     }
 
     user.getIdTokenResult().then((idTokenResult) => {
-      if (!!idTokenResult.claims.admin) {
+      // PERMITIR ACCESO AL ADMIN POR EMAIL DEBIDO A LA RESTRICCIÓN DEL ADMIN SDK
+      if (!!idTokenResult.claims.admin || user.email === 'rivas2020rodrigo@gmail.com') {
         setIsAdmin(true)
       } else {
         router.replace("/app") 

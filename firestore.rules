@@ -1,0 +1,42 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.admin == true;
+    }
+
+    match /users/{userId} {
+      allow read, create: if isOwner(userId) || isAdmin();
+      allow update: if isOwner(userId) || isAdmin();
+    }
+
+    match /rewards/{rewardId} {
+      allow read: if true;
+      allow write: if isAdmin();
+      allow update: if isAuthenticated() && 
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['stock', 'updatedAt']);
+    }
+
+    match /deliveries/{deliveryId} {
+      allow read: if (isAuthenticated() && resource.data.userId == request.auth.uid) || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    match /redemptions/{redemptionId} {
+      allow read: if (isAuthenticated() && resource.data.userId == request.auth.uid) || isAdmin();
+      allow create: if isOwner(request.resource.data.userId) || isAdmin();
+      allow update: if (isOwner(resource.data.userId) && request.resource.data.status == 'cancelled') || isAdmin();
+      allow delete: if isAdmin();
+    }
+  }
+}

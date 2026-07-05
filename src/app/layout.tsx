@@ -15,6 +15,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: {
     default: "UEDS - Unidad Extractora de Sacarosa",
     template: "%s | UEDS",
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
     siteName: "UEDS",
     images: [
       {
-        url: "/brand/ueds-logo.png",
+        url: "/brand/logo.jpeg",
         width: 800,
         height: 600,
         alt: "UEDS Logo",
@@ -43,12 +44,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "UEDS - Unidad Extractora de Sacarosa",
     description: "Demostración interactiva de extracción de caña y sistema de recompensas.",
-    images: ["/brand/ueds-logo.png"],
+    images: ["/brand/logo.jpeg"],
   },
   icons: {
-    icon: "/brand/ueds-logo.png",
-    shortcut: "/brand/ueds-logo.png",
-    apple: "/brand/ueds-logo.png",
+    icon: "/brand/logo.jpeg",
+    shortcut: "/brand/logo.jpeg",
+    apple: "/brand/logo.jpeg",
   },
 };
 

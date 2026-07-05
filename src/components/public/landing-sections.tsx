@@ -9,6 +9,7 @@ import { SectionHeader } from "@/components/ui/section-header"
 import { MachineVisual } from "./machine-visual"
 import { MOCK_REWARDS } from "@/lib/mock-data"
 import { Card, CardContent } from "@/components/ui/card"
+import { ProcessAnimation } from "./process-animation"
 
 export function HeroSection() {
   return (
@@ -131,16 +132,15 @@ export function HowItWorksSection() {
               ))}
             </div>
           </div>
-          <div className="flex-1 w-full bg-muted rounded-xl aspect-square flex items-center justify-center p-8">
-            <div className="text-center text-muted-foreground">
-              [Diagrama de flujo animado]
-            </div>
+          <div className="flex-1 w-full max-w-md">
+            <ProcessAnimation />
           </div>
         </div>
       </Container>
     </section>
   )
 }
+
 
 export function RewardsPreviewSection() {
   return (

@@ -12,7 +12,7 @@ export function MachineVisual({ className }: { className?: string }) {
         src="/brand/Machine.jpeg" 
         alt="Prototipo de máquina de extracción de sacarosa" 
         fill
-        className="object-contain" 
+        className="object-contain rounded-3xl drop-shadow-2xl" 
         priority
       />
     </div>

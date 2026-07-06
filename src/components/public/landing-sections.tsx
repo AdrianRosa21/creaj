@@ -208,7 +208,7 @@ export function HowItWorksSection() {
 }
 
 
-export function RewardsPreviewSection() {
+export function RewardsPreviewSection({ showAll = false }: { showAll?: boolean }) {
   const [rewards, setRewards] = useState<Reward[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -225,26 +225,32 @@ export function RewardsPreviewSection() {
     { number: "3", title: "Canjea Premios", desc: "Elige una recompensa del catálogo, solicítala y recíbela al instante." },
   ]
 
+  const displayedRewards = showAll ? rewards : rewards.slice(0, 4)
+
   return (
     <section className="py-20 bg-muted/30">
       <Container>
-        <SectionHeader 
-          title="Sistema de Puntos y Premios" 
-          description="Participa en nuestra demostración interactiva diseñada para motivar y recompensar la participación."
-          className="text-center mb-12 items-center"
-        />
-        
-        <div className="grid md:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto text-center">
-          {steps.map((step, i) => (
-            <div key={i} className="flex flex-col items-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary font-bold mb-4 text-lg">
-                {step.number}
-              </div>
-              <h4 className="font-semibold text-lg mb-2">{step.title}</h4>
-              <p className="text-muted-foreground text-sm">{step.desc}</p>
+        {!showAll && (
+          <>
+            <SectionHeader 
+              title="Sistema de Puntos y Premios" 
+              description="Participa en nuestra demostración interactiva diseñada para motivar y recompensar la participación."
+              className="text-center mb-12 items-center"
+            />
+            
+            <div className="grid md:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto text-center">
+              {steps.map((step, i) => (
+                <div key={i} className="flex flex-col items-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary font-bold mb-4 text-lg">
+                    {step.number}
+                  </div>
+                  <h4 className="font-semibold text-lg mb-2">{step.title}</h4>
+                  <p className="text-muted-foreground text-sm">{step.desc}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
 
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
           {loading ? (
@@ -252,11 +258,11 @@ export function RewardsPreviewSection() {
           ) : rewards.length === 0 ? (
             <div className="col-span-full text-center py-10 text-muted-foreground">Próximamente más premios disponibles.</div>
           ) : (
-            rewards.slice(0, 4).map(reward => (
-              <Card key={reward.id} className="overflow-hidden border-none shadow-sm">
+            displayedRewards.map(reward => (
+              <Card key={reward.id} className="overflow-hidden border-none shadow-sm hover:shadow-md transition-shadow group">
                 <div className="aspect-square bg-muted flex items-center justify-center overflow-hidden">
                   {reward.imageUrl ? (
-                    <img src={reward.imageUrl} alt={reward.name} className="w-full h-full object-cover" />
+                    <img src={reward.imageUrl} alt={reward.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   ) : (
                     <span className="text-4xl">🎁</span>
                   )}
@@ -269,11 +275,33 @@ export function RewardsPreviewSection() {
             ))
           )}
         </div>
-        <div className="text-center">
-          <Link href="/recompensas">
-            <Button variant="outline">Ver catálogo completo</Button>
-          </Link>
-        </div>
+        
+        {!showAll && (
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href="/recompensas">
+              <Button variant="outline" size="lg">Ver catálogo completo</Button>
+            </Link>
+          </div>
+        )}
+
+        {!showAll && (
+          <div className="mt-20 relative overflow-hidden rounded-3xl bg-primary text-primary-foreground p-8 md:p-12 text-center shadow-2xl">
+            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white opacity-10 blur-3xl" />
+            <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-white opacity-10 blur-2xl" />
+            
+            <div className="relative z-10 max-w-2xl mx-auto">
+              <h3 className="text-3xl md:text-4xl font-bold mb-4">¿Listo para ganar premios reales?</h3>
+              <p className="text-primary-foreground/80 text-lg mb-8">
+                Crea tu cuenta ahora mismo, trae tus cañas al trapiche y comienza a acumular puntos para llevarte increíbles recompensas de nuestra demostración interactiva.
+              </p>
+              <Link href="/crear-cuenta">
+                <Button size="lg" variant="secondary" className="text-primary font-bold text-lg px-8 py-6 rounded-full shadow-xl hover:scale-105 transition-transform">
+                  Crear mi cuenta y empezar a ganar ✨
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
       </Container>
     </section>
   )

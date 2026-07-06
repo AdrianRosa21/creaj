@@ -10,7 +10,7 @@ export default function RecompensasPage() {
           Como parte de esta demostración, puedes simular la entrega de caña y acumular puntos canjeables por productos reales en nuestro stand.
         </p>
       </Container>
-      <RewardsPreviewSection />
+      <RewardsPreviewSection showAll={true} />
     </div>
   )
 }

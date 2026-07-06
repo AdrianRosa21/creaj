@@ -143,17 +143,36 @@ export function HowItWorksSection() {
 
 
 export function RewardsPreviewSection() {
+  const steps = [
+    { number: "1", title: "Entrega tu caña", desc: "Acércate al módulo del trapiche con tus cañas de azúcar." },
+    { number: "2", title: "Acumula Puntos", desc: "Un administrador registrará tu entrega y se te sumarán 10 pts por caña a tu saldo." },
+    { number: "3", title: "Canjea Premios", desc: "Elige una recompensa del catálogo, solicítala y recíbela al instante." },
+  ]
+
   return (
     <section className="py-20 bg-muted/30">
       <Container>
         <SectionHeader 
           title="Sistema de Puntos y Premios" 
-          description="Participa en nuestra demostración interactiva: entrega cañas y canjea premios."
+          description="Participa en nuestra demostración interactiva diseñada para motivar y recompensar la participación."
           className="text-center mb-12 items-center"
         />
+        
+        <div className="grid md:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto text-center">
+          {steps.map((step, i) => (
+            <div key={i} className="flex flex-col items-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary font-bold mb-4 text-lg">
+                {step.number}
+              </div>
+              <h4 className="font-semibold text-lg mb-2">{step.title}</h4>
+              <p className="text-muted-foreground text-sm">{step.desc}</p>
+            </div>
+          ))}
+        </div>
+
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
           {MOCK_REWARDS.slice(0, 4).map(reward => (
-            <Card key={reward.id} className="overflow-hidden">
+            <Card key={reward.id} className="overflow-hidden border-none shadow-sm">
               <div className="aspect-square bg-muted flex items-center justify-center">
                 <span className="text-4xl">🎁</span>
               </div>

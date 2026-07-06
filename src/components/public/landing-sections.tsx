@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { ArrowRight, Leaf, Shield, CheckCircle2 } from "lucide-react"
+import { ArrowRight, Leaf, Shield, CheckCircle2, Zap, Play, Filter, AlertTriangle, Info } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 import { SectionHeader } from "@/components/ui/section-header"
@@ -15,12 +15,36 @@ import { getActiveRewards } from "@/lib/services/rewards"
 import { Reward } from "@/types/domain"
 
 export function HeroSection() {
+  const machineFeatures = [
+    {
+      title: "Motor Eléctrico",
+      desc: "Genera la fuerza necesaria para triturar la caña con alta eficiencia.",
+      icon: <Zap className="h-6 w-6" />
+    },
+    {
+      title: "Rodillos Metálicos",
+      desc: "Comprimen la caña a alta presión para extraer el máximo de sacarosa.",
+      icon: <Play className="h-6 w-6" />
+    },
+    {
+      title: "Canal de Recolección",
+      desc: "Conduce el jugo extraído hacia el recipiente de forma higiénica.",
+      icon: <Filter className="h-6 w-6" />
+    },
+    {
+      title: "Paro de Emergencia",
+      desc: "Sistema de seguridad industrial para detener la máquina al instante.",
+      icon: <AlertTriangle className="h-6 w-6 text-destructive" />
+    }
+  ]
+
   return (
     <section className="relative overflow-hidden bg-background py-20 lg:py-32">
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
       <Container className="relative">
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          <div className="flex-1 text-center lg:text-left">
+        <div className="flex flex-col lg:flex-row items-start gap-12">
+          
+          <div className="flex-1 text-center lg:text-left flex flex-col gap-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -45,16 +69,55 @@ export function HeroSection() {
                 </Link>
               </div>
             </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="bg-muted/50 border rounded-2xl p-5 shadow-sm flex items-start gap-4 text-left"
+            >
+              <div className="h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <Info className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="font-bold text-foreground text-base mb-1">Prototipo Visual</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Esta imagen es una representación visual (prototipo) de cómo será la máquina. Aún faltan ajustes de diseño e integración real.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left"
+            >
+              {machineFeatures.map((feature, idx) => (
+                <div key={idx} className="flex gap-4 p-5 border rounded-xl bg-card shadow-sm hover:shadow-md transition-shadow">
+                  <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center shrink-0 text-foreground">
+                    {feature.icon}
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-base mb-1">{feature.title}</h4>
+                    <p className="text-sm text-muted-foreground">{feature.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
           </div>
-          <div className="flex-1 w-full max-w-xl">
+
+          <div className="flex-1 w-full max-w-xl lg:sticky lg:top-24">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
+              className="w-full"
             >
               <MachineVisual />
             </motion.div>
           </div>
+          
         </div>
       </Container>
     </section>

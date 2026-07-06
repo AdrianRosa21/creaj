@@ -51,7 +51,7 @@ export function MachineVisual({ className }: { className?: string }) {
           src="/brand/Machine.jpeg" 
           alt="Prototipo de máquina de extracción de sacarosa" 
           fill
-          className="object-cover opacity-90 mix-blend-multiply" 
+          className="object-contain opacity-90 mix-blend-multiply" 
         />
       </div>
 

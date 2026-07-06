@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { ArrowRight, Leaf, Shield, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -10,6 +11,8 @@ import { MachineVisual } from "./machine-visual"
 import { MOCK_REWARDS } from "@/lib/mock-data"
 import { Card, CardContent } from "@/components/ui/card"
 import { ProcessAnimation } from "./process-animation"
+import { getActiveRewards } from "@/lib/services/rewards"
+import { Reward } from "@/types/domain"
 
 export function HeroSection() {
   return (
@@ -143,6 +146,16 @@ export function HowItWorksSection() {
 
 
 export function RewardsPreviewSection() {
+  const [rewards, setRewards] = useState<Reward[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    getActiveRewards().then(res => {
+      setRewards(res)
+      setLoading(false)
+    })
+  }, [])
+
   const steps = [
     { number: "1", title: "Entrega tu caña", desc: "Acércate al módulo del trapiche con tus cañas de azúcar." },
     { number: "2", title: "Acumula Puntos", desc: "Un administrador registrará tu entrega y se te sumarán 10 pts por caña a tu saldo." },
@@ -171,17 +184,27 @@ export function RewardsPreviewSection() {
         </div>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-          {MOCK_REWARDS.slice(0, 4).map(reward => (
-            <Card key={reward.id} className="overflow-hidden border-none shadow-sm">
-              <div className="aspect-square bg-muted flex items-center justify-center">
-                <span className="text-4xl">🎁</span>
-              </div>
-              <CardContent className="p-4 text-center">
-                <h4 className="font-semibold">{reward.name}</h4>
-                <p className="text-sm font-medium text-primary mt-1">{reward.costPoints} pts</p>
-              </CardContent>
-            </Card>
-          ))}
+          {loading ? (
+            <div className="col-span-full text-center py-10 text-muted-foreground">Cargando catálogo...</div>
+          ) : rewards.length === 0 ? (
+            <div className="col-span-full text-center py-10 text-muted-foreground">Próximamente más premios disponibles.</div>
+          ) : (
+            rewards.slice(0, 4).map(reward => (
+              <Card key={reward.id} className="overflow-hidden border-none shadow-sm">
+                <div className="aspect-square bg-muted flex items-center justify-center overflow-hidden">
+                  {reward.imageUrl ? (
+                    <img src={reward.imageUrl} alt={reward.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="text-4xl">🎁</span>
+                  )}
+                </div>
+                <CardContent className="p-4 text-center">
+                  <h4 className="font-semibold">{reward.name}</h4>
+                  <p className="text-sm font-medium text-primary mt-1">{reward.costPoints} pts</p>
+                </CardContent>
+              </Card>
+            ))
+          )}
         </div>
         <div className="text-center">
           <Link href="/recompensas">

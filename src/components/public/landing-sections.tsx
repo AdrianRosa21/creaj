@@ -284,24 +284,22 @@ export function RewardsPreviewSection({ showAll = false }: { showAll?: boolean }
           </div>
         )}
 
-        {!showAll && (
-          <div className="mt-20 relative overflow-hidden rounded-3xl bg-primary text-primary-foreground p-8 md:p-12 text-center shadow-2xl">
-            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white opacity-10 blur-3xl" />
-            <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-white opacity-10 blur-2xl" />
-            
-            <div className="relative z-10 max-w-2xl mx-auto">
-              <h3 className="text-3xl md:text-4xl font-bold mb-4">¿Listo para ganar premios reales?</h3>
-              <p className="text-primary-foreground/80 text-lg mb-8">
-                Crea tu cuenta ahora mismo, trae tus cañas al trapiche y comienza a acumular puntos para llevarte increíbles recompensas de nuestra demostración interactiva.
-              </p>
-              <Link href="/crear-cuenta">
-                <Button size="lg" variant="secondary" className="text-primary font-bold text-lg px-8 py-6 rounded-full shadow-xl hover:scale-105 transition-transform">
-                  Crear mi cuenta y empezar a ganar ✨
-                </Button>
-              </Link>
-            </div>
+        <div className="mt-20 relative overflow-hidden rounded-3xl bg-primary text-primary-foreground p-8 md:p-12 text-center shadow-2xl">
+          <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white opacity-10 blur-3xl" />
+          <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-48 h-48 rounded-full bg-white opacity-10 blur-2xl" />
+          
+          <div className="relative z-10 max-w-2xl mx-auto">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4">¿Listo para ganar premios reales?</h3>
+            <p className="text-primary-foreground/80 text-lg mb-8">
+              Crea tu cuenta ahora mismo, trae tus cañas al trapiche y comienza a acumular puntos para llevarte increíbles recompensas de nuestra demostración interactiva.
+            </p>
+            <Link href="/crear-cuenta">
+              <Button size="lg" variant="secondary" className="text-primary font-bold text-lg px-8 py-6 rounded-full shadow-xl hover:scale-105 transition-transform">
+                Crear mi cuenta y empezar a ganar ✨
+              </Button>
+            </Link>
           </div>
-        )}
+        </div>
       </Container>
     </section>
   )

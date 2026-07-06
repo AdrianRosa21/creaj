@@ -7,13 +7,11 @@ import Image from "next/image"
 
 export function MachineVisual({ className }: { className?: string }) {
   return (
-    <div className={cn("w-full h-[500px] lg:h-[700px] relative mx-auto", className)}>
-      <Image 
+    <div className={cn("w-full max-w-md lg:max-w-xl mx-auto relative", className)}>
+      <img 
         src="/brand/Machine.jpeg" 
         alt="Prototipo de máquina de extracción de sacarosa" 
-        fill
-        className="object-contain rounded-3xl drop-shadow-2xl" 
-        priority
+        className="w-full h-auto rounded-3xl drop-shadow-2xl border" 
       />
     </div>
   )
